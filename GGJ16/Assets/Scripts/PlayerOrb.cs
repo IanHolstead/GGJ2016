@@ -5,6 +5,10 @@ public class PlayerOrb : MonoBehaviour {
 
     public Color colour; //just for testing
     public Sprite redSprite;
+    public Sprite blueSprite;
+    public Sprite greenSprite;
+    public Sprite yellowSprite;
+    public Sprite defaultSprite;
 
 	// Use this for initialization
 	void Start () {
@@ -63,5 +67,17 @@ public class PlayerOrb : MonoBehaviour {
     public Color GetColour()
     {
         return colour;
+    }
+
+    public Sprite newPlayerSprite(Color colour)
+    {
+        colour.r *= 255;
+        colour.g *= 255;
+        colour.b *= 255;
+        if (colour == new Color(255, 0, 0)) { return redSprite; }
+        else if (colour == new Color(0, 255, 0)) { return greenSprite; }
+        else if (colour == new Color(0, 0, 255)) { return blueSprite; }
+        else if (colour == new Color(255, 255, 0)) { return yellowSprite; }
+        else { Debug.Log("Unknown colour!"); return defaultSprite; }
     }
 }

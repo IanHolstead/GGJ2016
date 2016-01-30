@@ -25,7 +25,7 @@ public class Orb : MonoBehaviour {
         Debug.Log("Orb Collision!");
         if(otherObj.gameObject.tag == "Player")
         {
-            otherObj.gameObject.GetComponent<SpriteRenderer>().sprite = otherObj.gameObject.GetComponent<PlayerOrb>().redSprite;
+            otherObj.gameObject.GetComponent<SpriteRenderer>().sprite = otherObj.gameObject.GetComponent<PlayerOrb>().newPlayerSprite(this.gameObject.GetComponent<SpriteRenderer>().color);
         }
     }
 }
