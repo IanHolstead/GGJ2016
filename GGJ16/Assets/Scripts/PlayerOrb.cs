@@ -8,8 +8,7 @@ public class PlayerOrb : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -36,7 +35,6 @@ public class PlayerOrb : MonoBehaviour {
         else if (otherObj.gameObject.tag == "Orb")
         {
             Orb orb = otherObj.gameObject.GetComponent<Orb>();
-            
         }
         else if (otherObj.gameObject.tag == "Shrine")
         {
