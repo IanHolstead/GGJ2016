@@ -23,5 +23,9 @@ public class Orb : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D otherObj)
     {
         Debug.Log("Orb Collision!");
+        if(otherObj.gameObject.tag == "Player")
+        {
+            otherObj.gameObject.GetComponent<SpriteRenderer>().sprite = otherObj.gameObject.GetComponent<PlayerOrb>().redSprite;
+        }
     }
 }
