@@ -22,9 +22,9 @@ public class testMovement : MonoBehaviour {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             //rb.velocity = rb.velocity * -2;
             rb.AddForce(rb.velocity * -2, ForceMode2D.Impulse);
-            if (true)
+            if (rb.velocity == new Vector2(0,0))
             {
-
+                rb.AddForce(new Vector3(2, 0, 0), ForceMode2D.Impulse); 
             }
         }
     }
