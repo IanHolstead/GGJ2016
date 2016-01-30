@@ -20,4 +20,13 @@ public class Orb : MonoBehaviour {
     void hover() {
 
     }
+
+    void OnTriggerEnter2D(Collider2D otherObj)
+    {
+        if (otherObj.gameObject.tag == "Player")
+        {
+            
+            
+        }
+    }
 }
