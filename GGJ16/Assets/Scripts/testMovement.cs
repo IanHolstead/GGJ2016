@@ -22,6 +22,10 @@ public class testMovement : MonoBehaviour {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             //rb.velocity = rb.velocity * -2;
             rb.AddForce(rb.velocity * -2, ForceMode2D.Impulse);
+            if (true)
+            {
+
+            }
         }
     }
 }
