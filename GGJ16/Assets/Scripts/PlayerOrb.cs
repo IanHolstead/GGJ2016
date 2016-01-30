@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerOrb : MonoBehaviour {
 
-    public Color colour; //just for testing
+    private Color colour;
     public Sprite redSprite;
     public Sprite blueSprite;
     public Sprite greenSprite;
@@ -15,11 +15,12 @@ public class PlayerOrb : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        colour = new Color();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             if (colour == new Color(255,0,0))
             {
@@ -30,14 +31,21 @@ public class PlayerOrb : MonoBehaviour {
                 colour = new Color(255, 0, 0);
             }
         }
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
+            Debug.Log("Use Pressed");
             useableObject.Use(this);
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("Use Pressed");
+            Colour = new Color();
+            orb = null;
         }
 
     }
 
-    void OnTriggerEnter2D(Collision2D otherObj)
+    void OnTriggerEnter2D(Collider2D otherObj)
     {
         if (otherObj.gameObject.tag == "Orb")
         {
@@ -54,7 +62,7 @@ public class PlayerOrb : MonoBehaviour {
         }
     }
 
-    void OnTriggerExit2D(Collision2D otherObj)
+    void OnTriggerExit2D(Collider2D otherObj)
     {
         if (otherObj.gameObject.tag == "Orb")
         {
@@ -77,22 +85,24 @@ public class PlayerOrb : MonoBehaviour {
         }
     }
 
-
-    public Color GetColour()
+    void newPlayerSprite()
     {
-        return colour;
+        colour.a = 1;
+        Sprite sprite;
+        Debug.Log("Colour: " + colour);
+        Debug.Log("New colour: " + new Color(0, 0, 1));
+        if (colour == new Color(1, 0, 0)) { sprite =  redSprite; }
+        else if (colour == new Color(0, 1, 0)) { sprite = greenSprite; }
+        else if (colour == new Color(0, 0, 1)) { sprite = blueSprite; }
+        else if (colour == new Color(1, 1, 0)) { sprite = yellowSprite; }
+        else {
+            //Debug.Log("Unknown colour!");
+            colour = new Color();
+            sprite = defaultSprite;
+        }
+        Debug.Log("setting sprite to: " + sprite);
+        GetComponent<SpriteRenderer>().sprite = sprite;
     }
-
-    public Sprite newPlayerSprite(Color colour)
-    {
-        colour.r *= 255;
-        colour.g *= 255;
-        colour.b *= 255;
-        if (colour == new Color(255, 0, 0)) { return redSprite; }
-        else if (colour == new Color(0, 255, 0)) { return greenSprite; }
-        else if (colour == new Color(0, 0, 255)) { return blueSprite; }
-        else if (colour == new Color(255, 255, 0)) { return yellowSprite; }
-        else { Debug.Log("Unknown colour!"); return defaultSprite; }
 
     public Orb RemoveOrb()
     {
@@ -113,4 +123,18 @@ public class PlayerOrb : MonoBehaviour {
         }
     }
 
+    public Color Colour
+    {
+        get
+        {
+            return colour;
+        }
+
+        set
+        {
+            Debug.Log("Set colour to: " + value);
+            colour = value;
+            newPlayerSprite();
+        }
+    }
 }
