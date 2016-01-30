@@ -37,7 +37,7 @@ public class PlayerOrb : MonoBehaviour {
 
     }
 
-    void OnTriggerEnter2D(Collision2D otherObj)
+    void OnTriggerEnter2D(Collider2D otherObj)
     {
         if (otherObj.gameObject.tag == "Orb")
         {
@@ -54,7 +54,7 @@ public class PlayerOrb : MonoBehaviour {
         }
     }
 
-    void OnTriggerExit2D(Collision2D otherObj)
+    void OnTriggerExit2D(Collider2D otherObj)
     {
         if (otherObj.gameObject.tag == "Orb")
         {
@@ -93,6 +93,7 @@ public class PlayerOrb : MonoBehaviour {
         else if (colour == new Color(0, 0, 255)) { return blueSprite; }
         else if (colour == new Color(255, 255, 0)) { return yellowSprite; }
         else { Debug.Log("Unknown colour!"); return defaultSprite; }
+    }
 
     public Orb RemoveOrb()
     {

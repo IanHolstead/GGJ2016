@@ -4,6 +4,7 @@ using System.Collections;
 public class testMovement : MonoBehaviour {
 
     public bool moveRight = true;
+    public bool moveRightRigidBody = true;
 
 	// Use this for initialization
 	void Start () {
@@ -11,12 +12,15 @@ public class testMovement : MonoBehaviour {
         if (moveRight)
         {
             rb.velocity = new Vector3(2, 0, 0);
-        }
-        
+        }        
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if (moveRightRigidBody)
+        {
+            transform.position = transform.position + new Vector3(0.1f, 0, 0);
+        }
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (Input.GetKey(KeyCode.X))
         {
