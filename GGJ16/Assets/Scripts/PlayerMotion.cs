@@ -105,6 +105,7 @@ public class PlayerMotion : MonoBehaviour
 		} else {
 			return false;
 		}
+        return false;
 	}
 
 	void OnCollisionEnter2D (Collision2D c)
