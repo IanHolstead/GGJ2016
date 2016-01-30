@@ -84,7 +84,7 @@ public class PlayerMotion : MonoBehaviour
 		GetComponent<Rigidbody2D> ().velocity += (new Vector2 (0, jump) * Time.deltaTime);
 	}
 
-	void isJump(){
+	bool isJump(){
 		if (playerID == 0 && Input.GetKey (KeyCode.Joystick1Button0)) {
 			return true;
 		} else if (playerID == 1 && Input.GetKey (KeyCode.Joystick2Button0)) {
@@ -94,6 +94,7 @@ public class PlayerMotion : MonoBehaviour
 		} else if (playerID == 3 && Input.GetKey (KeyCode.Joystick4Button0)) {
 			return true;
 		}
+        return false;
 	}
 
 	void OnCollisionEnter2D (Collision2D c)
