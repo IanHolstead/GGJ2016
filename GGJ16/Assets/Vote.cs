@@ -10,9 +10,11 @@ public class Vote : MonoBehaviour
 	private List<Transform> p2Votes = new List<Transform>();
 	private List<Transform> p3Votes = new List<Transform>();
 	private List<Transform> p4Votes = new List<Transform>();
+	private int[] playerBalletsPartial = new int[4] { -1, -1, -1, -1 };
 	public Text timerText;
 
 	float timer = 10;
+	bool displaying = true;
 
 	// Use this for initialization
 	void Start ()
@@ -36,36 +38,43 @@ public class Vote : MonoBehaviour
 	void Update ()
 	{
 
-		int[] playerBallets = new int[4] { 0, 0, 0, 0 };
-
 		// Collect the vote of each player
-		/*
-		for (int i = 0; i < 4; i++) {
-			if (Input.GetAxis("GamePad" + i + "Vertical") > 0) {
-				playerBallets[0]++;
+		for (int i = 1; i < 5; i++) {
+			if (Input.GetAxis("P" + i + "DPadVert") < 0) {
+				playerBalletsPartial[i-1] = 0;
 			}
-			else if (Input.GetAxis("GamePad" + i + "Horizontal") > 0) {
-				playerBallets[1]++;
+			else if (Input.GetAxis("P" + i + "DPadHoriz") > 0) {
+				playerBalletsPartial[i-1] = 1;
 			}
-			else if (Input.GetAxis("GamePad" + i + "Vertical") < 0) {
-				playerBallets[2]++;
+			else if (Input.GetAxis("P" + i + "DPadVert") > 0) {
+				playerBalletsPartial[i-1] = 2;
 			}
-			else if (Input.GetAxis("GamePad" + i + "Horizontal") < 0) {
-				playerBallets[3]++;
+			else if (Input.GetAxis("P" + i + "DPadHoriz") < 0) {
+				playerBalletsPartial[i-1] = 3;
 			}
 		}
-*/
+
+		int[] playerBallets = new int[4] { 0, 0, 0, 0 };
+		for (int i = 0; i < 4; i++) {
+			if (playerBalletsPartial [i] == -1) {
+				continue;
+			}
+			playerBallets [playerBalletsPartial [i]]++;
+		}
 
 		// Render the appropriate vote boxes
 		for (int i = 0; i < 4; i++) {
 			for (int ii = 0; ii < 4; ii++) {
-				playerVotes[i][ii].GetComponent<SpriteRenderer> ().enabled = (playerBallets[i] > ii);
+				playerVotes[i][ii].GetComponent<SpriteRenderer> ().enabled = ((playerBallets[i] > ii) && displaying);
 			}
 		}
-
+		if (displaying == false) {
+			return;
+		}
 		timer -= Time.deltaTime;
 		timerText.text = timer.ToString();
 		if (timer < 0) {
+			displaying = false;
 			// Close the vote and call lightning
 			this.GetComponent<Renderer> ().enabled = false;
 			timerText.text = "";
@@ -84,8 +93,8 @@ public class Vote : MonoBehaviour
 					// those votes and zap them
 					for (int ii = 0; ii < 4; ++ii) {
 						if (playerBallets [ii] == i) {
-							Debug.Log ("Zapping Player" + ii);
-							//Zap(playerii)
+							Debug.Log ("Zapping Player" + (ii + 1));
+							//Zap(playerii +1)
 							return;
 						}
 					}
