@@ -9,6 +9,7 @@ public class PlayerOrb : MonoBehaviour {
     public Sprite greenSprite;
     public Sprite yellowSprite;
     public Sprite defaultSprite;
+    Orb orb;
 
 	// Use this for initialization
 	void Start () {
@@ -46,9 +47,10 @@ public class PlayerOrb : MonoBehaviour {
         }
     }
 
-    void PickUpOrb(Orb orb)
+    void PickUpOrb(Orb pickupOrb)
     {
-        colour = orb.colour;
+        colour = pickupOrb.colour;
+        orb = pickupOrb;
         //hide orb in level
     }
 
@@ -79,5 +81,11 @@ public class PlayerOrb : MonoBehaviour {
         else if (colour == new Color(0, 0, 255)) { return blueSprite; }
         else if (colour == new Color(255, 255, 0)) { return yellowSprite; }
         else { Debug.Log("Unknown colour!"); return defaultSprite; }
+
+    public Orb RemoveOrb()
+    {
+        Orb toReturn = orb;
+        orb = null;
+        return toReturn;
     }
 }
