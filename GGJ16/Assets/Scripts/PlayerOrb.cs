@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerOrb : MonoBehaviour {
 
     public Color colour; //just for testing
+    public Sprite redSprite;
 
 	// Use this for initialization
 	void Start () {

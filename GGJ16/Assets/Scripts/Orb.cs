@@ -13,11 +13,15 @@ public class Orb : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
         hover();
 	}
 
     void hover() {
 
+    }
+
+    void OnTriggerEnter2D(Collider2D otherObj)
+    {
+        Debug.Log("Orb Collision!");
     }
 }
