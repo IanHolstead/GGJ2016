@@ -28,7 +28,7 @@ public class Shrine : UsableObject {
 
     private void DestroyOrb(PlayerOrb player)
     {
-        player.colour = new Color();
+        player.Colour = new Color();
         Orb orb = player.RemoveOrb();
         Destroy(orb);
     }
@@ -38,7 +38,7 @@ public class Shrine : UsableObject {
         if (otherObj.gameObject.tag == "Player")
         {
             PlayerOrb player = otherObj.GetComponent<PlayerOrb>();
-            if (player.GetColour() == colour)
+            if (player.Colour == colour)
             {
                 validPlayer = player;
             }

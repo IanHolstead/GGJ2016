@@ -22,7 +22,7 @@ public class testMovement : MonoBehaviour {
             transform.position = transform.position + new Vector3(0.1f, 0, 0);
         }
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        if (Input.GetKey(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             //rb.velocity = rb.velocity * -2;
             rb.AddForce(rb.velocity * -2, ForceMode2D.Impulse);
@@ -31,7 +31,11 @@ public class testMovement : MonoBehaviour {
                 rb.AddForce(new Vector3(2, 0, 0), ForceMode2D.Impulse); 
             }
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            rb.AddForce(new Vector3(-2, 0, 0), ForceMode2D.Impulse);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
         {
             rb.velocity = new Vector2(0, 0);
         }

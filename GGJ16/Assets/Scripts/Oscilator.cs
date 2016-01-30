@@ -13,6 +13,7 @@ public class Oscilator : MonoBehaviour {
     // Use this for initialization
     void Start () {
         initialHeight = transform.position.y;
+        occilator = Random.Range(0, 10);
     }
 	
 	// Update is called once per frame

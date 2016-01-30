@@ -10,7 +10,7 @@ public class ColourWall : MonoBehaviour {
         if (otherObj.gameObject.tag == "Player")
         {
             PlayerOrb player = otherObj.gameObject.GetComponent<PlayerOrb>();
-            if (player.GetColour() == colour)
+            if (player.Colour == colour)
             {
                 Physics2D.IgnoreCollision(otherObj, this.GetComponent<BoxCollider2D>());
             }

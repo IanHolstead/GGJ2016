@@ -16,9 +16,10 @@ public class Orb : UsableObject {
 
     public override void Use(PlayerOrb player)
     {
+        Debug.Log("Orb used by: " + player);
         if (player.Orb == null)
         {
-            player.colour = colour;
+            player.Colour = colour;
             player.Orb = this;
 
             GetComponent<SpriteRenderer>().enabled = false;
@@ -30,12 +31,12 @@ public class Orb : UsableObject {
         }
     }
 
-    void OnTriggerEnter2D(Collider2D otherObj)
-    {
-        Debug.Log("Orb Collision!");
-        if(otherObj.gameObject.tag == "Player")
-        {
-            otherObj.gameObject.GetComponent<SpriteRenderer>().sprite = otherObj.gameObject.GetComponent<PlayerOrb>().newPlayerSprite(this.gameObject.GetComponent<SpriteRenderer>().color);
-        }
-    }
+    //void OnTriggerEnter2D(Collider2D otherObj)
+    //{
+    //    Debug.Log("Orb Collision!");
+    //    if(otherObj.gameObject.tag == "Player")
+    //    {
+    //        otherObj.gameObject.GetComponent<SpriteRenderer>().sprite = otherObj.gameObject.GetComponent<PlayerOrb>().newPlayerSprite(this.gameObject.GetComponent<SpriteRenderer>().color);
+    //    }
+    //}
 }
