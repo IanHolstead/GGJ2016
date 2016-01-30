@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMotion : MonoBehaviour {
-	static private float distToGround = 0f;
+public class PlayerMotion : MonoBehaviour
+{
+	public bool isGrounded = false, isPlayered = false;
+	private int jumpsLeft = 2;
 	public int playerID;
 	public int flyingSpeedDenominator = 1;
 	private string playerCode = "P";
@@ -10,50 +12,77 @@ public class PlayerMotion : MonoBehaviour {
 	private float vertVel;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		playerCode = playerCode + playerID + "_";
-		distToGround = GetComponent<PolygonCollider2D> ().bounds.extents.y;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		vertVel = Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y);
-		if (flyingSpeedDenominator == 0) {
-			flyingSpeedDenominator = 1;
-		}
+	void Update ()
+	{
+		vertVel = GetComponent<Rigidbody2D> ().velocity.y;
 		Movement ();
-		HoldRotation ();
+		Debug.Log (jumpsLeft);
 	}
 
-	void Movement(){
-		float hor = Input.GetAxis (playerCode + "Horizontal") * 1000;
+	void Movement ()
+	{
+		float hor = Input.GetAxis (playerCode + "Horizontal") * 50;
 		float jump = 0f;
-		Debug.Log (isGrounded ());
-		if (isGrounded()) {
-			jump = Input.GetAxis (playerCode + "Jump") * 10000;
+		if (isGrounded ^ isPlayered || jumpsLeft > 0 ) {
+			if (playerID == 0 && Input.GetKey (KeyCode.Joystick1Button0)) {
+				jump = 500f;
+				isGrounded = false;
+				jumpsLeft = jumpsLeft > 0 ? jumpsLeft - 1 : 0;
+			} else if (playerID == 1 && Input.GetKey (KeyCode.Joystick2Button0)) {
+				jump = 500f;
+				isGrounded = false;
+				jumpsLeft = jumpsLeft > 0 ? jumpsLeft - 1 : 0;
+			} else if (playerID == 2 && Input.GetKey (KeyCode.Joystick3Button0)) {
+				jump = 500f;
+				isGrounded = false;
+				jumpsLeft = jumpsLeft > 0 ? jumpsLeft - 1 : 0;
+			} else if (playerID == 3 && Input.GetKey (KeyCode.Joystick4Button0)) {
+				jump = 500f;
+				isGrounded = false;
+				jumpsLeft = jumpsLeft > 0 ? jumpsLeft - 1 : 0;
+			}
 		} else {
 			hor = hor / flyingSpeedDenominator;
 		}
-		GetComponent<Rigidbody2D> ().AddForce (new Vector2 (hor, jump) * Time.deltaTime);
+		GetComponent<Rigidbody2D> ().velocity += (new Vector2 (hor, 0) * Time.deltaTime);
+		GetComponent<Rigidbody2D> ().velocity += (new Vector2 (0, jump) * Time.deltaTime);
 	}
 
-	void HoldRotation(){
-		rotation = transform.eulerAngles;
-		float z = rotation.z;
-		float y = rotation.y;
-		float x = rotation.x;
-		if (15 < z && z < 180) {
-			transform.Rotate (new Vector3 (0, 0, 15 - z));
-		} else if (rotation.z < 345 && rotation.z >= 180) {
-			transform.Rotate (new Vector3 (0, 0, 345 - z));
+	void OnCollisionEnter2D (Collision2D c)
+	{
+		if (c.collider.sharedMaterial.name == "Ground") {
+			isGrounded = true;
+			jumpsLeft = jumpsLeft <= 2 ? jumpsLeft + 1 : 2;
 		}
-		z = transform.eulerAngles.z;
-		if (!isGrounded ()) {
-			transform.Rotate (new Vector3 (0, 0, -z));
+		if (c.collider.sharedMaterial.name == "Player") {
+			isPlayered = true;
 		}
 	}
 
-	bool isGrounded(){
-		return vertVel < 0.01f;
+	void OnCollisionStay2D (Collision2D c)
+	{
+		if (c.collider.sharedMaterial.name == "Ground") {
+			isGrounded = true;
+			jumpsLeft = jumpsLeft < 2 ? jumpsLeft + 1 : 2;
+		}
+		if (c.collider.sharedMaterial.name == "Player") {
+			isPlayered = true;
+		}
+	}
+
+	void OnCollisionExit2D (Collision2D c)
+	{
+		if (c.collider.sharedMaterial.name == "Ground") {
+			isGrounded = false;
+		}
+		if (c.collider.sharedMaterial.name == "Player") {
+			isPlayered = false;
+		}
 	}
 }
