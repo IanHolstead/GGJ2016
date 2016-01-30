@@ -25,4 +25,13 @@ public class ColourWall : MonoBehaviour {
             Physics2D.IgnoreCollision(otherObj, this.GetComponent<BoxCollider2D>(), false);
         }
     }
+
+    public void DisableWallByColour(Color disableColour)
+    {
+        if (disableColour == colour)
+        {
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
+    }
 }

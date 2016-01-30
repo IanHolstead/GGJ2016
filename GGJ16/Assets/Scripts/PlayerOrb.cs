@@ -5,6 +5,7 @@ public class PlayerOrb : MonoBehaviour {
 
     public Color colour; //just for testing
     public Sprite redSprite;
+    Orb orb;
 
 	// Use this for initialization
 	void Start () {
@@ -42,9 +43,10 @@ public class PlayerOrb : MonoBehaviour {
         }
     }
 
-    void PickUpOrb(Orb orb)
+    void PickUpOrb(Orb pickupOrb)
     {
-        colour = orb.colour;
+        colour = pickupOrb.colour;
+        orb = pickupOrb;
         //hide orb in level
     }
 
@@ -63,5 +65,12 @@ public class PlayerOrb : MonoBehaviour {
     public Color GetColour()
     {
         return colour;
+    }
+
+    public Orb RemoveOrb()
+    {
+        Orb toReturn = orb;
+        orb = null;
+        return toReturn;
     }
 }
