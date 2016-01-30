@@ -1,21 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Shrine : MonoBehaviour {
+public class Shrine : UsableObject {
 
     public Color colour;
     PlayerOrb validPlayer;
-	
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
-    public virtual bool DepositeOrb(PlayerOrb player)
+    public override void Use(PlayerOrb player)
     {
         if (player == validPlayer)
         {
@@ -23,9 +14,7 @@ public class Shrine : MonoBehaviour {
             DestroyOrb(player);
 
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            return true;
         }
-        return false;
     }
 
     private void RemoveWalls()

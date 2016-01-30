@@ -1,23 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EvilShrine : MonoBehaviour {
+public class EvilShrine : UsableObject {
 
     Color colour = new Color();
     PlayerOrb validPlayer;
 
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public virtual bool DepositeOrb(PlayerOrb player)
+    public override void Use(PlayerOrb player)
     {
         if (player == validPlayer)
         {
@@ -26,9 +15,7 @@ public class EvilShrine : MonoBehaviour {
             DestroyOrb(player);
 
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            return true;
         }
-        return false;
     }
 
     private void EnpowerPlayers()

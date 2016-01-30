@@ -11,8 +11,10 @@ public class PlayerOrb : MonoBehaviour {
     public Sprite defaultSprite;
     Orb orb;
 
-	// Use this for initialization
-	void Start () {
+    private UsableObject useableObject;
+
+    // Use this for initialization
+    void Start () {
     }
 	
 	// Update is called once per frame
@@ -28,43 +30,53 @@ public class PlayerOrb : MonoBehaviour {
                 colour = new Color(255, 0, 0);
             }
         }
+        if (Input.GetKey(KeyCode.E))
+        {
+            useableObject.Use(this);
+        }
 
     }
 
-    void OnCollisionEnter2D(Collision2D otherObj)
+    void OnTriggerEnter2D(Collision2D otherObj)
     {
-        if (otherObj.gameObject.tag == "ColourWall")
+        if (otherObj.gameObject.tag == "Orb")
         {
-
-        }
-        else if (otherObj.gameObject.tag == "Orb")
-        {
-            Orb orb = otherObj.gameObject.GetComponent<Orb>();
+            useableObject = otherObj.gameObject.GetComponent<Orb>();
         }
         else if (otherObj.gameObject.tag == "Shrine")
         {
-
+            UsableObject shrine = otherObj.gameObject.GetComponent<Shrine>();
+            if (shrine == null)
+            {
+                shrine = otherObj.gameObject.GetComponent<EvilShrine>();
+            }
+            useableObject = shrine;
         }
     }
 
-    void PickUpOrb(Orb pickupOrb)
+    void OnTriggerExit2D(Collision2D otherObj)
     {
-        colour = pickupOrb.colour;
-        orb = pickupOrb;
-        //hide orb in level
+        if (otherObj.gameObject.tag == "Orb")
+        {
+            if (otherObj.gameObject.GetComponent<Orb>() == useableObject)
+            {
+                useableObject = null;
+            }
+        }
+        else if (otherObj.gameObject.tag == "Shrine")
+        {
+            UsableObject shrine = otherObj.gameObject.GetComponent<Shrine>();
+            if (shrine == null)
+            {
+                shrine = otherObj.gameObject.GetComponent<EvilShrine>();
+            }
+            if (shrine == useableObject)
+            {
+                useableObject = null;
+            }
+        }
     }
 
-    void SwapOrb(Orb newOrb, Orb oldOrb)
-    {
-        oldOrb.transform.position = newOrb.transform.position;
-        colour = newOrb.colour;
-    }
-
-    void PlaceOrb(Orb orb)
-    {
-        colour = new Color();
-        //send message no double jump
-    }
 
     public Color GetColour()
     {
@@ -88,4 +100,17 @@ public class PlayerOrb : MonoBehaviour {
         orb = null;
         return toReturn;
     }
+    public Orb Orb
+    {
+        get
+        {
+            return orb;
+        }
+
+        set
+        {
+            orb = value;
+        }
+    }
+
 }
