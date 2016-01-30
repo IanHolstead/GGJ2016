@@ -11,6 +11,9 @@ public class PlayerMotion : MonoBehaviour
 	private Vector3 rotation;
 	private float vertVel;
 
+    public bool hasDoubleJump = false;
+    public bool hasFastMovement = false;
+
 	// Use this for initialization
 	void Start ()
 	{
