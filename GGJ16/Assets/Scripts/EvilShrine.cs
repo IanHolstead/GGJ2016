@@ -6,16 +6,18 @@ public class EvilShrine : UsableObject {
     Color colour = new Color();
     PlayerOrb validPlayer;
 
-    public override void Use(PlayerOrb player)
+    public override bool Use(PlayerOrb player)
     {
         if (player == validPlayer)
         {
-            EnpowerPlayers();
+            //EnpowerPlayers();
             RemoveWalls();
             DestroyOrb(player);
 
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            return true;
         }
+        return false;
     }
 
     private void EnpowerPlayers()

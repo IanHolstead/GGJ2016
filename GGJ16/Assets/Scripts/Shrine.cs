@@ -6,7 +6,7 @@ public class Shrine : UsableObject {
     public Color colour;
     PlayerOrb validPlayer;
 
-    public override void Use(PlayerOrb player)
+    public override bool Use(PlayerOrb player)
     {
         if (player == validPlayer)
         {
@@ -14,7 +14,9 @@ public class Shrine : UsableObject {
             DestroyOrb(player);
 
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            return true;
         }
+        return false;
     }
 
     private void RemoveWalls()

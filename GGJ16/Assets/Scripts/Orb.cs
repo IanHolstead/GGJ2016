@@ -14,7 +14,7 @@ public class Orb : UsableObject {
 
 	}
 
-    public override void Use(PlayerOrb player)
+    public override bool Use(PlayerOrb player)
     {
         Debug.Log("Orb used by: " + player);
         if (player.Orb == null)
@@ -24,11 +24,13 @@ public class Orb : UsableObject {
 
             GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<BoxCollider2D>().enabled = false;
+            return true;
         }
         else
         {
             //SwapOrb()
         }
+        return false;
     }
 
     //void OnTriggerEnter2D(Collider2D otherObj)

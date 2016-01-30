@@ -33,12 +33,18 @@ public class PlayerOrb : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("Use Pressed");
-            useableObject.Use(this);
+            if (useableObject != null)
+            {
+                Debug.Log("Use Pressed on:" + useableObject);
+                if(useableObject.Use(this))
+                {
+                    useableObject = null;
+                }
+            }
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log("Use Pressed");
+            Debug.Log("Orb Dropped");
             Colour = new Color();
             orb = null;
         }
@@ -122,6 +128,7 @@ public class PlayerOrb : MonoBehaviour {
         orb = null;
         return toReturn;
     }
+
     public Orb Orb
     {
         get
