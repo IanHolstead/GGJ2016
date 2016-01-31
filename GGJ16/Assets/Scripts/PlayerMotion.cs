@@ -13,7 +13,7 @@ public class PlayerMotion : MonoBehaviour
 	private Rigidbody2D rb;
 	private bool isShocked = false;
 	private float shockedSince = 0f;
-	private int playersShocked = 0;
+	private int playersShocked = 1;
 	private SpriteRenderer currentSprite;
 	public static float shockTime = 10F;
     
@@ -72,9 +72,9 @@ public class PlayerMotion : MonoBehaviour
 
 	void Movement ()
 	{
-		float jumpHeight = 350f;
+		float jumpHeight = 1600f;
 		float maxHor = 5f;
-		float maxHeight = 6f;
+		float maxHeight = 12f;
 		float x, y;
 		bool jumping = false;
 		float hor = Input.GetAxis (playerCode + "Horizontal") * 50;
@@ -120,6 +120,8 @@ public class PlayerMotion : MonoBehaviour
 		}
 		if (y > maxHeight && !hasDJumped) {
 			rb.velocity = new Vector2 (x, maxHeight);
+		} else if (y > 1.2f * maxHeight && hasDJumped) {
+			rb.velocity = new Vector2 (x, maxHeight * 1.2f);
 		}
 	}
 
