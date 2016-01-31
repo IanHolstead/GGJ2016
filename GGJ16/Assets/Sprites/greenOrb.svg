@@ -17,7 +17,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="greenOrb.svg"
-   inkscape:export-filename="/home/jason/Projects/GGJ2016/GGJ16/Assets/Sprites/purpleOrb.png"
+   inkscape:export-filename="/home/jason/Projects/GGJ2016/GGJ16/Assets/Sprites/greenOrb.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -136,7 +136,7 @@
        sodipodi:nodetypes="ccccc"
        transform="matrix(0.92487469,0,0,0.92487469,28.921283,52.229726)" />
     <path
-       style="opacity:1;fill:#4ea500;fill-opacity:1;stroke:url(#radialGradient4173-0);stroke-width:7;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4427-7)"
+       style="opacity:1;fill:#4e8a00;fill-opacity:1;stroke:url(#radialGradient4173-0);stroke-width:7;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4427-7)"
        d="m -113.25635,417.9823 c 289.4625,-24.45938 590.20579,-23.53698 901,0 l 6,49 c -210.59796,433.54389 -763.4511,398.48625 -917,-14 z"
        id="rect4164-9"
        inkscape:connector-curvature="0"
