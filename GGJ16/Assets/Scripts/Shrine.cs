@@ -1,24 +1,23 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Shrine : UsableObject {
 
     public Color colour;
-    PlayerOrb validPlayer;
-	public GameObject votePasser;
-	private VotePasser votePasserScript;
+    List<PlayerOrb> validPlayers;
 
 	void Start(){
-		votePasserScript = votePasser.GetComponent<VotePasser> ();
+        validPlayers = new List<PlayerOrb>();
 	}
 
     public override bool Use(PlayerOrb player)
     {
-        if (player == validPlayer)
+        if (validPlayers.Contains(player))
         {
             RemoveWalls();
             DestroyOrb(player);
-			votePasserScript.giveVoteToo(player.playerID);
+            validPlayers.Clear();
+            givePlayerVote(player.GetComponent<PlayerMotion>());
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             return true;
         }
@@ -40,6 +39,11 @@ public class Shrine : UsableObject {
         Destroy(orb);
     }
 
+    void givePlayerVote(PlayerMotion player)
+    {
+        //player.
+    }
+
     void OnTriggerEnter2D(Collider2D otherObj)
     {
         if (otherObj.gameObject.tag == "Player")
@@ -47,7 +51,7 @@ public class Shrine : UsableObject {
             PlayerOrb player = otherObj.GetComponent<PlayerOrb>();
             if (player.Colour == colour)
             {
-                validPlayer = player;
+                validPlayers.Add(player);
             }
         }
     }
@@ -57,9 +61,9 @@ public class Shrine : UsableObject {
         if (otherObj.gameObject.tag == "Player")
         {
             PlayerOrb player = otherObj.GetComponent<PlayerOrb>();
-            if (player == validPlayer)
+            if (validPlayers.Contains(player))
             {
-                validPlayer = null;
+                validPlayers.Remove(player);
             }
         }
     }

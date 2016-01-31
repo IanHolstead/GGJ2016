@@ -17,7 +17,7 @@ public class Lava : MonoBehaviour {
     {
         if (otherObj.gameObject.tag == "Player")
         {
-            otherObj.GetComponent<PlayerOrb>().Die();
+            otherObj.GetComponent<PlayerMotion>().Die();
         }
     }
 
