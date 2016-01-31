@@ -30,7 +30,6 @@ public class Shrine : UsableObject {
 
     private void DestroyOrb(PlayerOrb player)
     {
-        player.Colour = new Color();
         Orb orb = player.RemoveOrb();
         Destroy(orb);
     }

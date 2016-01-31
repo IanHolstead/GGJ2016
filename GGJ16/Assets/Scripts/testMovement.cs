@@ -5,6 +5,7 @@ public class testMovement : MonoBehaviour {
 
     public bool moveRight = true;
     public bool moveRightRigidBody = true;
+    public bool moveLeftRigidBody = true;
     public Vector3 respawn = new Vector3(-3, 1, 0);
     public float respawnDelay = 1.0f;
     private float respawnTime = 0.0f;
@@ -34,6 +35,10 @@ public class testMovement : MonoBehaviour {
         if (moveRightRigidBody)
         {
             transform.position = transform.position + new Vector3(0.1f, 0, 0);
+        }
+        if (moveLeftRigidBody)
+        {
+            transform.position -= new Vector3(0.1f, 0, 0);
         }
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (Input.GetKeyDown(KeyCode.X))
