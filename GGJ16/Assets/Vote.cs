@@ -12,6 +12,7 @@ public class Vote : MonoBehaviour
 	private List<Transform> p4Votes = new List<Transform>();
 	private int[] playerBalletsPartial = new int[4] { -1, -1, -1, -1 };
 	public Text timerText;
+	public GameObject storm;
 
 	float timer = 10;
 	bool displaying = true;
@@ -94,7 +95,7 @@ public class Vote : MonoBehaviour
 					for (int ii = 0; ii < 4; ++ii) {
 						if (playerBallets [ii] == i) {
 							Debug.Log ("Zapping Player" + (ii + 1));
-							//Zap(playerii +1)
+							storm.GetComponent<Shocking> ().AttackTarget (ii);
 							return;
 						}
 					}
@@ -102,7 +103,7 @@ public class Vote : MonoBehaviour
 					// If there is to "winners" or we've got to the 
 					//end of the array
 					Debug.Log ("Zapping Everyone");
-					//ZapAll()
+					storm.GetComponent<Shocking> ().AttackAll();
 					return;
 				}
 			}
