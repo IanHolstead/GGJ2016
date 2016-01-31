@@ -20,6 +20,7 @@ public class Witch : MonoBehaviour {
     public void CursePlayer(int overridePlayerIndex = -1)
     {
         int index = overridePlayerIndex != -1 ? overridePlayerIndex : Random.Range(0, 3);
+        Debug.Log("Ian" + index);
         players[index].gameObject.AddComponent<EvilPowers>();
     }
 

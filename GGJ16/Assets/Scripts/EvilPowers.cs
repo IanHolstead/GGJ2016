@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using XInputDotNetPure;
 
 public class EvilPowers : MonoBehaviour {
 
@@ -11,10 +12,12 @@ public class EvilPowers : MonoBehaviour {
 
     List<Trap> traps;
     List<Rigidbody2D> players;
-    
 
-	// Use this for initialization
-	void Start () {
+    GamePadState state;
+
+    // Use this for initialization
+    void Start () {
+        state = GamePad.GetState(PlayerIndex.One);
         //GET READY TO RUUUUUUUUMMMMMMMMBBBBBBBBLLLLLLLLLLEEEEEEE
         traps = new List<Trap>();
         //traps = FindObjectsOfType<Trap>();
@@ -25,11 +28,12 @@ public class EvilPowers : MonoBehaviour {
 	void Update () {
         timeSinceFreeze += Time.deltaTime;
         timeSinceTraps += Time.deltaTime;
-        
+        Debug.Log("Left" + state.Triggers.Left);
+        Debug.Log("RIGHT" + state.Triggers.Right);
         //if button is pushed
 
 
-	}
+    }
 
     void UseTraps()
     {
