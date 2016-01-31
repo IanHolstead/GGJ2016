@@ -42,8 +42,6 @@ public class PlayerMotion : MonoBehaviour
             }
         }
 
-        vertVel = GetComponent<Rigidbody2D> ().velocity.y;
-
 		Movement ();
 		if (playerID == 0 && Input.GetKeyDown (KeyCode.Joystick1Button0)) {
 			isHoldingJump = true;
