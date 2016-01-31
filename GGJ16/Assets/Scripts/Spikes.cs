@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Spikes : MonoBehaviour {
+public class Spikes : Trap {
 
     private bool useable = true;
     public bool use = false;
@@ -30,12 +30,12 @@ public class Spikes : MonoBehaviour {
 	void Update () {
         if(use == true && useable == true)
         {
-            Use(); // Should start process, but not BE the process 
+            Activate(); // Should start process, but not BE the process 
         }
         SpikeAction();
 	}
 
-    void Use()
+    override public void Activate()
     {
         useable = false;
         poking = true;

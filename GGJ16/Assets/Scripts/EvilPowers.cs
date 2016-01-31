@@ -15,7 +15,7 @@ public class EvilPowers : MonoBehaviour {
 
     static PlayerIndex[] playerIndices = new PlayerIndex[] { PlayerIndex.One, PlayerIndex.Two, PlayerIndex.Three, PlayerIndex.Four };
 
-    List<Trap> traps;
+    Trap[] traps;
     List<Rigidbody2D> players;
 
     GamePadState state;
@@ -33,8 +33,8 @@ public class EvilPowers : MonoBehaviour {
         playerIndex = playerIndices[GetComponent<PlayerMotion>().playerID];
 
         GamePad.SetVibration(playerIndex, 0, .5f);//GET READY TO RUUUUUUUUMMMMMMMMBBBBBBBBLLLLLLLLLLEEEEEEE
-        traps = new List<Trap>();
-        //traps = FindObjectsOfType<Trap>();
+        //traps = new List<Trap>();
+        traps = FindObjectsOfType<Trap>();
         //find all traps
 	}
 	
@@ -65,6 +65,7 @@ public class EvilPowers : MonoBehaviour {
         foreach (Trap trap in traps)
         {
             trap.Activate();
+            timeSinceTraps = 0;
         }
     }
 
@@ -73,6 +74,7 @@ public class EvilPowers : MonoBehaviour {
         foreach (Rigidbody2D player in players)
         {
             player.velocity = new Vector2(0, player.velocity.y);
+            timeSinceFreeze = 0;
         }
     }
 }
