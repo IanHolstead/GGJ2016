@@ -6,9 +6,12 @@ public class Button : MonoBehaviour {
     public bool buttonPressed = false;
     public GameObject[] platforms;
 
+    public Sprite normalButtonSprite;
+    public Sprite activatedButtonSprite;
+
 	// Use this for initialization
 	void Start () {
-	
+        GetComponent<SpriteRenderer>().sprite = normalButtonSprite;
 	}
 	
 	// Update is called once per frame
@@ -19,10 +22,9 @@ public class Button : MonoBehaviour {
     {
         if (otherObj.gameObject.tag == "Player")
         {
-            Debug.Log("Detected");
+            GetComponent<SpriteRenderer>().sprite = activatedButtonSprite;
             foreach (GameObject obj in platforms)
             {
-                Debug.Log("Platform 1");
                 Controllable platform = obj.GetComponent<MovingPlatform>();
                 platform.Activate();
             }
@@ -33,6 +35,7 @@ public class Button : MonoBehaviour {
     {
         if (otherObj.gameObject.tag == "Player")
         {
+            GetComponent<SpriteRenderer>().sprite = normalButtonSprite;
             foreach (GameObject obj in platforms)
             {
                 Controllable platform = obj.GetComponent<MovingPlatform>();
