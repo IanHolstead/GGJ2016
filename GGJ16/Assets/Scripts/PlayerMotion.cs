@@ -4,13 +4,13 @@ using System.Collections;
 public class PlayerMotion : MonoBehaviour
 {
 	public bool isGrounded = false, isPlayered = false;
-	private int jumpsLeft = 2;
 	public int playerID;
 	public int flyingSpeedDenominator = 1;
 	private string playerCode = "P";
 	private Vector3 rotation;
-	private float vertVel;
 	private bool isHoldingJump = false;
+	private bool hasDJumped = false;
+	private Rigidbody2D rigidbody;
 
 	public bool hasDoubleJump = false;
 	public bool hasFastMovement = false;
@@ -23,11 +23,13 @@ public class PlayerMotion : MonoBehaviour
     void Start ()
 	{
 		playerCode = playerCode + playerID + "_";
+		rigidbody = GetComponent<Rigidbody2D> ();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+
         if (GetComponent<SpriteRenderer>().enabled == false)
         {
             respawnTime += Time.deltaTime;
@@ -41,8 +43,8 @@ public class PlayerMotion : MonoBehaviour
         }
 
         vertVel = GetComponent<Rigidbody2D> ().velocity.y;
+
 		Movement ();
-		Debug.Log (jumpsLeft);
 		if (playerID == 0 && Input.GetKeyDown (KeyCode.Joystick1Button0)) {
 			isHoldingJump = true;
 		} else if (playerID == 1 && Input.GetKeyDown (KeyCode.Joystick2Button0)) {
@@ -60,55 +62,67 @@ public class PlayerMotion : MonoBehaviour
 		} else if (playerID == 3 && Input.GetKeyUp (KeyCode.Joystick4Button0)) {
 			isHoldingJump = false;
 		}
+		//logBool (isHoldingJump, "Holding Jump", "Not Holding Jump");
 	}
 
 	void Movement ()
 	{
-		float jumpHeight = 300f;
+		float jumpHeight = 350f;
+		float maxHor = 5f;
+		float maxHeight = 6f;
+		float x, y;
 		bool jumping = false;
 		float hor = Input.GetAxis (playerCode + "Horizontal") * 50;
 		float jump = 0f;
-		if (isGrounded ^ isPlayered) {
-			if (playerID == 0 && Input.GetKey (KeyCode.Joystick1Button0)) {
-				jumping = true;
-			} else if (playerID == 1 && Input.GetKey (KeyCode.Joystick2Button0)) {
-				jumping = true;
-			} else if (playerID == 2 && Input.GetKey (KeyCode.Joystick3Button0)) {
-				jumping = true;
-			} else if (playerID == 3 && Input.GetKey (KeyCode.Joystick4Button0)) {
-				jumping = true;
-			}
-			if (jumping) {
-				Debug.Log ("I am jumping");
-				jump = jumpHeight;
-				isGrounded = false;
-				jumpsLeft = jumpsLeft > 0 ? jumpsLeft - 1 : 0;
-			}
-		} else {
-			hor = hor / flyingSpeedDenominator;
+		x = rigidbody.velocity.x;
+		if (x > maxHor) {
+			hor = maxHor - x;
+		} else if (-x > maxHor) {
+			hor = maxHor + x;
 		}
-		if (!isGrounded && !isPlayered && !isHoldingJump && jumpsLeft > 0) {
-			Debug.Log ("I am able to DJump");
+		if (isGrounded ^ isPlayered) {
 			jumping = isJump ();
 			if (jumping) {
+				//Debug.Log ("I am jumping");
 				jump = jumpHeight;
 				isGrounded = false;
-				jumpsLeft = jumpsLeft > 0 ? jumpsLeft - 1 : 0;
+			}
+		} else if (!isGrounded) {
+			hor = hor / flyingSpeedDenominator;
+		}
+		if (!isHoldingJump && !isGrounded && !isPlayered && !hasDJumped && hasDoubleJump) {
+			//Debug.Log ("I can DJump");
+			jumping = isJump ();
+			if (jumping) {
+				//Debug.Log ("I am Djumping");
+				jump = jump + jumpHeight * 0.75f;
+				isGrounded = false;
+				hasDJumped = true;
 			}
 		}
-		GetComponent<Rigidbody2D> ().velocity += (new Vector2 (hor, 0) * Time.deltaTime);
-		GetComponent<Rigidbody2D> ().velocity += (new Vector2 (0, jump) * Time.deltaTime);
+		if (hasFastMovement) {
+			hor *= 2;
+		}
+		rigidbody.velocity += (new Vector2 (hor, 0) * Time.deltaTime);
+		rigidbody.velocity += (new Vector2 (0, jump) * Time.deltaTime);
+		y = rigidbody.velocity.y;
+		x = rigidbody.velocity.x;
+		if (y > maxHeight && !hasDJumped) {
+			rigidbody.velocity = new Vector2 (x, maxHeight);
+		}
 	}
 
 	bool isJump(){
-		if (playerID == 0 && Input.GetKey (KeyCode.Joystick1Button0)) {
+		if (playerID == 0 && Input.GetKeyDown (KeyCode.Joystick1Button0)) {
 			return true;
-		} else if (playerID == 1 && Input.GetKey (KeyCode.Joystick2Button0)) {
+		} else if (playerID == 1 && Input.GetKeyDown (KeyCode.Joystick2Button0)) {
 			return true;
-		} else if (playerID == 2 && Input.GetKey (KeyCode.Joystick3Button0)) {
+		} else if (playerID == 2 && Input.GetKeyDown (KeyCode.Joystick3Button0)) {
 			return true;
-		} else if (playerID == 3 && Input.GetKey (KeyCode.Joystick4Button0)) {
+		} else if (playerID == 3 && Input.GetKeyDown (KeyCode.Joystick4Button0)) {
 			return true;
+		} else {
+			return false;
 		}
         return false;
 	}
@@ -117,7 +131,6 @@ public class PlayerMotion : MonoBehaviour
 	{
 		if (c.collider.sharedMaterial.name == "Ground") {
 			isGrounded = true;
-			jumpsLeft = jumpsLeft < 2 ? jumpsLeft + 1 : 2;
 		}
 		if (c.collider.sharedMaterial.name == "Player") {
 			isPlayered = true;
@@ -128,7 +141,6 @@ public class PlayerMotion : MonoBehaviour
 	{
 		if (c.collider.sharedMaterial.name == "Ground") {
 			isGrounded = true;
-			jumpsLeft = jumpsLeft < 2 ? jumpsLeft + 1 : 2;
 		}
 		if (c.collider.sharedMaterial.name == "Player") {
 			isPlayered = true;
@@ -139,9 +151,18 @@ public class PlayerMotion : MonoBehaviour
 	{
 		if (c.collider.sharedMaterial.name == "Ground") {
 			isGrounded = false;
+			hasDJumped = false;
 		}
 		if (c.collider.sharedMaterial.name == "Player") {
 			isPlayered = false;
+		}
+	}
+
+	void logBool(bool b, string tr, string fa){
+		if (b) {
+			Debug.Log (tr);
+		} else {
+			Debug.Log (fa);
 		}
 	}
 }
