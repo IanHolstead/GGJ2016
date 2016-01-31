@@ -6,9 +6,14 @@ public class EvilPowers : MonoBehaviour {
 
     public float trapCooldown = 10;
     public float freezeCooldown = 20;
+    public float rumbleLength = 1;
 
     float timeSinceTraps = 0;
     float timeSinceFreeze = 0;
+    float age = 0;
+    PlayerIndex playerIndex;
+
+    static PlayerIndex[] playerIndices = new PlayerIndex[] { PlayerIndex.One, PlayerIndex.Two, PlayerIndex.Three, PlayerIndex.Four };
 
     List<Trap> traps;
     List<Rigidbody2D> players;
@@ -24,8 +29,10 @@ public class EvilPowers : MonoBehaviour {
         {
             players.Add(playerOrb.GetComponent<Rigidbody2D>());
         }
-        state = GamePad.GetState(PlayerIndex.One);
-        //GET READY TO RUUUUUUUUMMMMMMMMBBBBBBBBLLLLLLLLLLEEEEEEE
+        
+        playerIndex = playerIndices[GetComponent<PlayerMotion>().playerID];
+
+        GamePad.SetVibration(playerIndex, 0, .5f);//GET READY TO RUUUUUUUUMMMMMMMMBBBBBBBBLLLLLLLLLLEEEEEEE
         traps = new List<Trap>();
         //traps = FindObjectsOfType<Trap>();
         //find all traps
@@ -33,13 +40,24 @@ public class EvilPowers : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        state = GamePad.GetState(playerIndex);
+        age += Time.deltaTime;
+        if (age > rumbleLength)
+        {
+            GamePad.SetVibration(playerIndex, 0, 0);
+        }
+
         timeSinceFreeze += Time.deltaTime;
         timeSinceTraps += Time.deltaTime;
-        Debug.Log("Left" + state.Triggers.Left);
-        Debug.Log("RIGHT" + state.Triggers.Right);
-        //if button is pushed
 
-
+        if (timeSinceFreeze > freezeCooldown && state.Triggers.Left > .85f)
+        {
+            Freeze();
+        }
+        if (timeSinceTraps > trapCooldown && state.Triggers.Right > .85f)
+        {
+            UseTraps();
+        }
     }
 
     void UseTraps()

@@ -3,12 +3,12 @@ using System.Collections;
 
 public class Witch : MonoBehaviour {
 
-    PlayerOrb[] players;
+    PlayerMotion[] players;
     public int cursedPlayer = -1;
 
 	// Use this for initialization
 	void Start () {
-        players = FindObjectsOfType<PlayerOrb>();
+        players = FindObjectsOfType<PlayerMotion>();
         //Debug.Assert(players.Length == 4);
 	}
 	
@@ -19,9 +19,22 @@ public class Witch : MonoBehaviour {
 
     public void CursePlayer(int overridePlayerIndex = -1)
     {
-        int index = overridePlayerIndex != -1 ? overridePlayerIndex : Random.Range(0, 3);
-        Debug.Log("Ian" + index);
-        players[index].gameObject.AddComponent<EvilPowers>();
+        int index = Random.Range(0, 3);
+        if (overridePlayerIndex != -1)
+        {
+            foreach (PlayerMotion player in players)
+            {
+                if (player.playerID == overridePlayerIndex)
+                {
+                    player.gameObject.AddComponent<EvilPowers>();
+                }
+            }
+        }
+        else
+        {
+            players[index].gameObject.AddComponent<EvilPowers>();
+        }
+
     }
 
     void OnTriggerEnter2D(Collider2D otherObj)
