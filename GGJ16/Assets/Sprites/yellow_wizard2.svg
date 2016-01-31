@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="yellow_wizard2.svg"
-   inkscape:export-filename="C:\Users\Sebastian Malton\Documents\GitHub\GGJ2016\GGJ16\Assets\Sprites\yellow-wizardSheet2.png"
+   inkscape:export-filename="/home/jason/GGJ2016/GGJ16/Assets/Sprites/yellow-wizardSheet2.png"
    inkscape:export-xdpi="89.7967"
    inkscape:export-ydpi="89.7967">
   <defs
@@ -29,16 +29,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.6311256"
-     inkscape:cx="304.29527"
-     inkscape:cy="548.67921"
+     inkscape:cx="1117.1287"
+     inkscape:cy="482.13144"
      inkscape:document-units="px"
      inkscape:current-layer="g64917-1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
+     inkscape:window-width="761"
+     inkscape:window-height="429"
+     inkscape:window-x="474"
+     inkscape:window-y="268"
+     inkscape:window-maximized="0"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
@@ -52,7 +52,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
