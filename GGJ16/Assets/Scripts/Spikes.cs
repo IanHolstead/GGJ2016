@@ -22,7 +22,7 @@ public class Spikes : Trap {
     {
         if (otherObj.gameObject.tag == "Player")
         {
-            otherObj.GetComponent<PlayerOrb>().Die();
+            otherObj.GetComponent<PlayerMotion>().Die();
         }
     }
 	

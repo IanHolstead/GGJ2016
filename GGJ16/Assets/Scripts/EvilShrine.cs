@@ -1,24 +1,27 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class EvilShrine : UsableObject {
 
     Color colour = new Color();
-    PlayerOrb validPlayer;
+    List<PlayerOrb> validPlayers;
     PlayerMotion[] players;
 
     void Start()
     {
+        validPlayers = new List<PlayerOrb>();
         players = FindObjectsOfType<PlayerMotion>();
     }
 
     public override bool Use(PlayerOrb player)
     {
-        if (player == validPlayer)
+        if (validPlayers.Contains(player))
         {
             EnpowerPlayers();
             RemoveWalls();
             DestroyOrb(player);
+
+            validPlayers.Clear();
 
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             return true;
@@ -81,7 +84,7 @@ public class EvilShrine : UsableObject {
             if (player.Colour != colour)
             {
                 colour = player.Colour;
-                validPlayer = player;
+                validPlayers.Add(player);
             }
         }
     }
@@ -91,9 +94,9 @@ public class EvilShrine : UsableObject {
         if (otherObj.gameObject.tag == "Player")
         {
             PlayerOrb player = otherObj.GetComponent<PlayerOrb>();
-            if (player == validPlayer)
+            if (validPlayers.Contains(player))
             {
-                validPlayer = null;
+                validPlayers.Remove(player);
                 colour = new Color();
             }
         }

@@ -43,7 +43,7 @@ public class Crusher : Trap {
         if (otherObj.gameObject.tag == "Player")
         {
             source.PlayOneShot(squish, 1F);
-            otherObj.GetComponent<PlayerOrb>().Die();
+            otherObj.GetComponent<PlayerMotion>().Die();
         }
     }
 

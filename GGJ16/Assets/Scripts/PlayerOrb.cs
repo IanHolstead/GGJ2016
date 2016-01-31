@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using XInputDotNetPure;
 
 public class PlayerOrb : MonoBehaviour {
 
@@ -12,7 +13,6 @@ public class PlayerOrb : MonoBehaviour {
     public Sprite purpleSprite;
     public Sprite defaultSprite;
     Orb orb;
-	public int playerID;
 
     private UsableObject useableObject;
 
@@ -23,35 +23,22 @@ public class PlayerOrb : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            if (colour == new Color(255,0,0))
-            {
-                colour = new Color();
-            }
-            else
-            {
-                colour = new Color(255, 0, 0);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.E))
+        
+    }
+
+    public void Use(GamePadState gamePadState)
+    {
+        if (gamePadState.Buttons.X == ButtonState.Pressed)
         {
             if (useableObject != null)
             {
                 Debug.Log("Use Pressed on:" + useableObject);
-                if(useableObject.Use(this))
+                if (useableObject.Use(this))
                 {
                     useableObject = null;
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("Orb Dropped");
-            Colour = new Color();
-            orb = null;
-        }
-
     }
 
     void OnTriggerEnter2D(Collider2D otherObj)
@@ -113,17 +100,6 @@ public class PlayerOrb : MonoBehaviour {
         }
         Debug.Log("setting sprite to: " + sprite);
         GetComponent<SpriteRenderer>().sprite = sprite;
-    }
-
-    public void Die()
-    {
-        GetComponent<SpriteRenderer>().enabled = false;
-        if (orb != null)
-        {
-            orb.GetComponent<SpriteRenderer>().enabled = true;
-            orb.GetComponent<BoxCollider2D>().enabled = true;
-            RemoveOrb();
-        }
     }
 
     public Orb RemoveOrb()

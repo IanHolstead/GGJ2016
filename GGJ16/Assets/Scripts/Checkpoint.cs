@@ -23,7 +23,7 @@ public class Checkpoint : MonoBehaviour {
             PlayerMotion[] players = FindObjectsOfType<PlayerMotion>();
             for(int i = 0; i < players.Length; i++)
             {
-                players[i].respawn = respawnLocation;
+                players[i].SetRespawnLocation(respawnLocation);
             }
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }

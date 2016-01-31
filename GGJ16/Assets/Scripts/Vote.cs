@@ -20,6 +20,7 @@ public class Vote : MonoBehaviour
 	public float timer = 10f;
 	bool displaying = true;
 	bool voting = false;
+    public float shockDuration = 10;
 
 	// Use this for initialization
 	void Start ()
