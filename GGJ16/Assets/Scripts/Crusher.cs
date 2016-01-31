@@ -4,7 +4,6 @@ using System.Collections;
 public class Crusher : MonoBehaviour {
 
     private bool useable = true;
-    //private bool finishedCrush = true;
     public bool use = false;
     public float shakeTime = 0.5f;
     private float timeShaking = 0.0f;
