@@ -17,6 +17,13 @@ public class EvilPowers : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        players = new List<Rigidbody2D>();
+
+        PlayerOrb[] playerOrbs = FindObjectsOfType<PlayerOrb>();
+        foreach (PlayerOrb playerOrb in playerOrbs)
+        {
+            players.Add(playerOrb.GetComponent<Rigidbody2D>());
+        }
         state = GamePad.GetState(PlayerIndex.One);
         //GET READY TO RUUUUUUUUMMMMMMMMBBBBBBBBLLLLLLLLLLEEEEEEE
         traps = new List<Trap>();

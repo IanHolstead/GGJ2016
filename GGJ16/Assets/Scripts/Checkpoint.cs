@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Checkpoint : MonoBehaviour {
 
+    public Vector3 respawnOffset = new Vector3(0, 5, 0);
+
     // Use this for initialization
     void Start () {
 	
@@ -17,11 +19,11 @@ public class Checkpoint : MonoBehaviour {
     {
         if(otherObj.gameObject.tag == "Player")
         {
-            Debug.Log("Checkpoint Collision!");
+            Vector3 respawnLocation = transform.position + respawnOffset;
             PlayerMotion[] players = FindObjectsOfType<PlayerMotion>();
             for(int i = 0; i < players.Length; i++)
             {
-                players[i].respawn = new Vector3(0, 14, 0);
+                players[i].respawn = respawnLocation;
             }
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
