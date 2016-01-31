@@ -16,6 +16,8 @@ public class PlayerMotion : MonoBehaviour
 	private int playersShocked = 1;
 	private SpriteRenderer currentSprite;
 	public static float shockTime = 10F;
+	public GameObject votingSystem;
+	private int votesLeft = 0;
     
 	public bool hasDoubleJump = false;
 	public bool hasFastMovement = false;
@@ -68,6 +70,29 @@ public class PlayerMotion : MonoBehaviour
 			isHoldingJump = false;
 		}
 		unShock ();
+		Vote ();
+	}
+
+	void Vote(){
+		bool res;
+		if (playerID == 0 && Input.GetKeyDown (KeyCode.Joystick1Button1)) {
+			res = true;
+		} else if (playerID == 1 && Input.GetKeyDown (KeyCode.Joystick1Button1)) {
+			res = true;
+		} else if (playerID == 2 && Input.GetKeyDown (KeyCode.Joystick1Button1)) {
+			res = true;
+		} else if (playerID == 3 && Input.GetKeyDown (KeyCode.Joystick1Button1)) {
+			res = true;
+		} else {
+			res = false;
+		}
+		if (votesLeft <= 0) {
+			res = false;
+		}
+		if (res) {
+			votingSystem.GetComponent<Vote> ().voteNow ();
+			votesLeft--;
+		}
 	}
 
 	void Movement ()
@@ -193,5 +218,9 @@ public class PlayerMotion : MonoBehaviour
 			isShocked = false;
 			//rb.gravityScale = 1;
 		}
+	}
+
+	public void givenPatition(){
+		votesLeft++;
 	}
 }

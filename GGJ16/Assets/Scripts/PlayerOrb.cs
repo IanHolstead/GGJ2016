@@ -12,6 +12,7 @@ public class PlayerOrb : MonoBehaviour {
     public Sprite purpleSprite;
     public Sprite defaultSprite;
     Orb orb;
+	public int playerID;
 
     private UsableObject useableObject;
 

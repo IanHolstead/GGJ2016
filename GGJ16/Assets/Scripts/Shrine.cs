@@ -5,6 +5,12 @@ public class Shrine : UsableObject {
 
     public Color colour;
     PlayerOrb validPlayer;
+	public GameObject votePasser;
+	private VotePasser votePasserScript;
+
+	void Start(){
+		votePasserScript = votePasser.GetComponent<VotePasser> ();
+	}
 
     public override bool Use(PlayerOrb player)
     {
@@ -12,7 +18,7 @@ public class Shrine : UsableObject {
         {
             RemoveWalls();
             DestroyOrb(player);
-
+			votePasserScript.giveVoteToo(player.playerID);
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             return true;
         }
