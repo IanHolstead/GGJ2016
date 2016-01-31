@@ -14,10 +14,13 @@ public class Crusher : MonoBehaviour {
     public float crushRaise = 0.1f;
     public float shakeAmnt = 0.1f;
     private Vector3 initialPos;
+    private AudioSource source;
+    public AudioClip squish;
 
 	// Use this for initialization
 	void Start () {
         initialPos = gameObject.transform.position;
+        source = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -33,6 +36,7 @@ public class Crusher : MonoBehaviour {
     {
         if (otherObj.gameObject.tag == "Player")
         {
+            source.PlayOneShot(squish, 1F);
             otherObj.GetComponent<PlayerOrb>().Die();
         }
     }

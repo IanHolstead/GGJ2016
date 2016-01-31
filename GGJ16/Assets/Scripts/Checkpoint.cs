@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Checkpoint : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 	
 	}
 	
