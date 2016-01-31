@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 8c33fd5bb55a2d746b0592dbed50716c
-timeCreated: 1454270121
+guid: 2472943cd0b6df54ba2df439f6b7157f
+timeCreated: 1454270039
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: yellow-wizardSheet2_0
-    21300002: yellow-wizardSheet2_1
-    21300004: yellow-wizardSheet2_2
-    21300006: yellow-wizardSheet2_3
+    21300000: green_wizard_2_0
+    21300002: green_wizard_2_1
+    21300004: green_wizard_2_2
+    21300006: green_wizard_2_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -54,7 +54,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: yellow-wizardSheet2_0
+    - name: green_wizard_2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -127,7 +127,7 @@ TextureImporter:
         - {x: 136.5, y: -310.6082}
         - {x: 138.5, y: -308.6082}
         - {x: 138.5, y: -293.6082}
-    - name: yellow-wizardSheet2_1
+    - name: green_wizard_2_1
       rect:
         serializedVersion: 2
         x: 476
@@ -203,7 +203,7 @@ TextureImporter:
         - {x: 111.642975, y: -310.06183}
         - {x: 115.642975, y: -308.06183}
         - {x: 114.642975, y: -285.06183}
-    - name: yellow-wizardSheet2_2
+    - name: green_wizard_2_2
       rect:
         serializedVersion: 2
         x: 1038
@@ -283,7 +283,7 @@ TextureImporter:
         - {x: 74.956726, y: -314.0309}
         - {x: 76.956726, y: -312.0309}
         - {x: 76.956726, y: -300.0309}
-    - name: yellow-wizardSheet2_3
+    - name: green_wizard_2_3
       rect:
         serializedVersion: 2
         x: 1599
