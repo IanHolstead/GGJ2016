@@ -15,8 +15,12 @@ public class PlayerMotion : MonoBehaviour
 	public bool hasDoubleJump = false;
 	public bool hasFastMovement = false;
 
-	// Use this for initialization
-	void Start ()
+    public Vector3 respawn = new Vector3(-3, 1, 0);
+    public float respawnDelay = 1.0f;
+    private float respawnTime = 0.0f;
+
+    // Use this for initialization
+    void Start ()
 	{
 		playerCode = playerCode + playerID + "_";
 		rigidbody = GetComponent<Rigidbody2D> ();
@@ -25,6 +29,21 @@ public class PlayerMotion : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+
+        if (GetComponent<SpriteRenderer>().enabled == false)
+        {
+            respawnTime += Time.deltaTime;
+            if (respawnTime >= respawnDelay)
+            {
+                GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+                transform.position = respawn;
+                GetComponent<SpriteRenderer>().enabled = true;
+                respawnTime = 0.0f;
+            }
+        }
+
+        vertVel = GetComponent<Rigidbody2D> ().velocity.y;
+
 		Movement ();
 		if (playerID == 0 && Input.GetKeyDown (KeyCode.Joystick1Button0)) {
 			isHoldingJump = true;
@@ -105,7 +124,6 @@ public class PlayerMotion : MonoBehaviour
 		} else {
 			return false;
 		}
-        return false;
 	}
 
 	void OnCollisionEnter2D (Collision2D c)

@@ -18,7 +18,7 @@ public class Lava : MonoBehaviour {
         Debug.Log("Lava Collision!");
         if (otherObj.gameObject.tag == "Player")
         {
-            otherObj.GetComponent<SpriteRenderer>().enabled = false;
+            otherObj.GetComponent<PlayerOrb>().Die();
         }
     }
 

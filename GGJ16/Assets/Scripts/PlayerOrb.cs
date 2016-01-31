@@ -122,8 +122,20 @@ public class PlayerOrb : MonoBehaviour {
         else { Debug.Log("Unknown colour!"); return defaultSprite; }
     }
 
+    public void Die()
+    {
+        GetComponent<SpriteRenderer>().enabled = false;
+        if (orb != null)
+        {
+            orb.GetComponent<SpriteRenderer>().enabled = true;
+            orb.GetComponent<BoxCollider2D>().enabled = true;
+            RemoveOrb();
+        }
+    }
+
     public Orb RemoveOrb()
     {
+        Colour = new Color();
         Orb toReturn = orb;
         orb = null;
         return toReturn;
