@@ -4,8 +4,8 @@ using XInputDotNetPure;
 
 public class EvilPowers : MonoBehaviour {
 
-    public float trapCooldown = 10;
-    public float freezeCooldown = 20;
+    public float trapCooldown = 5;
+    public float freezeCooldown = 2;
     public float rumbleLength = 1;
 
     float timeSinceTraps = 0;
@@ -49,7 +49,6 @@ public class EvilPowers : MonoBehaviour {
 
         timeSinceFreeze += Time.deltaTime;
         timeSinceTraps += Time.deltaTime;
-
         if (timeSinceFreeze > freezeCooldown && state.Triggers.Left > .85f)
         {
             Freeze();

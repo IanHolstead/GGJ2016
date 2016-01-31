@@ -136,6 +136,9 @@ public class Vote : MonoBehaviour
 
 	public void voteNow(){
 		voting = true;
+		displaying = true;
+		resetVote ();
+		timer = 10f;
 	}
 }
 

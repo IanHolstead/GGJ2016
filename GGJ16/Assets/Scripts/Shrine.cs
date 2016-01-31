@@ -17,7 +17,7 @@ public class Shrine : UsableObject {
             RemoveWalls();
             DestroyOrb(player);
             validPlayers.Clear();
-            givePlayerVote(player.GetComponent<PlayerMotion>());
+			givePlayerVote(player.GetComponent<PlayerVote>());
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             return true;
         }
@@ -39,9 +39,9 @@ public class Shrine : UsableObject {
         Destroy(orb);
     }
 
-    void givePlayerVote(PlayerMotion player)
+	void givePlayerVote(PlayerVote player)
     {
-        //player.
+		player.AddVote ();
     }
 
     void OnTriggerEnter2D(Collider2D otherObj)

@@ -32,7 +32,6 @@ public class PlayerOrb : MonoBehaviour {
         {
             if (useableObject != null)
             {
-                Debug.Log("Use Pressed on:" + useableObject);
                 if (useableObject.Use(this))
                 {
                     useableObject = null;
@@ -87,7 +86,6 @@ public class PlayerOrb : MonoBehaviour {
     {
         colour.a = 1;
         Sprite sprite;
-        Debug.Log("Colour: " + colour);
         if (colour == new Color(1, 0, 0)) { sprite =  redSprite; }
         else if (colour == new Color(0, 1, 0)) { sprite = greenSprite; }
         else if (colour == new Color(0, 0, 1)) { sprite = blueSprite; }
@@ -98,7 +96,6 @@ public class PlayerOrb : MonoBehaviour {
             colour = new Color();
             sprite = defaultSprite;
         }
-        Debug.Log("setting sprite to: " + sprite);
         GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
@@ -132,7 +129,6 @@ public class PlayerOrb : MonoBehaviour {
 
         set
         {
-            Debug.Log("Set colour to: " + value);
             colour = value;
             newPlayerSprite();
         }

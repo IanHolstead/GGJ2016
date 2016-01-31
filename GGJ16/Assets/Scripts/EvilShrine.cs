@@ -31,13 +31,10 @@ public class EvilShrine : UsableObject {
 
     private void EnpowerPlayers()
     {
-        Debug.Log("Ian Empower");
         if (!players[0].hasJump)
         {
-            Debug.Log("Ian jump");
             foreach (PlayerMotion playerMotion in players)
             {
-                Debug.Log("Ian player: " + playerMotion);
                 playerMotion.hasJump = true;
             }
         }

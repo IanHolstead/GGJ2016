@@ -46,7 +46,6 @@ public class MovingPlatform : Controllable {
 
     public override void Activate()
     {
-        Debug.Log("Activated Platform");
         active = true;
     }
 

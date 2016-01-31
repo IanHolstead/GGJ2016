@@ -16,7 +16,6 @@ public class Orb : UsableObject {
 
     public override bool Use(PlayerOrb player)
     {
-        Debug.Log("Orb used by: " + player);
         if (player.Orb == null)
         {
             player.Colour = colour;

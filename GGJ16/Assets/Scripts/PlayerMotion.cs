@@ -32,7 +32,7 @@ public class PlayerMotion : MonoBehaviour
     float timeSinceShockBegan = 0f;
 
     private int playersShocked = 1;
-    public static float shockTime = 10F;
+    public static float shockTime = 10f;
 
     public bool hasDoubleJump = false;
     public bool hasFastMovement = false;
@@ -187,6 +187,9 @@ public class PlayerMotion : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D c)
     {
+		Debug.Log ("C:" + c);
+		Debug.Log ("col: " + c.collider);
+		Debug.Log ("mat: " + c.collider.sharedMaterial);
         if (c.collider.sharedMaterial.name == "Ground")
         {
             isGrounded = true;
@@ -243,9 +246,15 @@ public class PlayerMotion : MonoBehaviour
 
     private void unShock()
     {
-        if (Time.fixedTime > timeSinceShockBegan + (shockTime / playersShocked))
+		if (isShocked) {
+			timeSinceShockBegan += Time.deltaTime;
+		}
+		Debug.Log (timeSinceShockBegan);
+		Debug.Log (shockTime / playersShocked);
+		if (timeSinceShockBegan > (shockTime / playersShocked))
         {
             isShocked = false;
+			timeSinceShockBegan = 0f;
             //rb.gravityScale = 1;
         }
     }

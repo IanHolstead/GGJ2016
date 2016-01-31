@@ -9,7 +9,6 @@ public class ColourWall : MonoBehaviour {
     {
         if (otherObj.gameObject.tag == "Player")
         {
-            Debug.Log("Player Collision");
             PlayerOrb player = otherObj.gameObject.GetComponent<PlayerOrb>();
             if (player.Colour == colour)
             {
