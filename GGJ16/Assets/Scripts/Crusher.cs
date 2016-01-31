@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Crusher : MonoBehaviour {
+public class Crusher : Trap {
 
     private bool useable = true;
     public bool use = false;
@@ -16,18 +16,24 @@ public class Crusher : MonoBehaviour {
     private Vector3 initialPos;
     private AudioSource source;
     public AudioClip squish;
+    private BoxCollider2D killCollider;
 
 	// Use this for initialization
 	void Start () {
         initialPos = gameObject.transform.position;
         source = GetComponent<AudioSource>();
+        BoxCollider2D[] colliders = GetComponents<BoxCollider2D>();
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].enabled == false) killCollider = colliders[i];
+        }
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if (use == true && useable == true)
         {
-            Use(); // Should start the process, but not be the whole process
+            Activate(); // Should start the process, but not be the whole process
         }
         CrusherAction();
     }
@@ -60,8 +66,9 @@ public class Crusher : MonoBehaviour {
         useable = true;
     }
 
-    void Use()
+    override public void Activate()
     {
+        killCollider.enabled = true;
         useable = false;
         timeShaking += Time.deltaTime;
     }
@@ -87,6 +94,7 @@ public class Crusher : MonoBehaviour {
                 gameObject.transform.position = initialPos - new Vector3(0, crushHeight, 0);
                 crushing = false;
                 raising = true;
+                killCollider.enabled = false;
             }
         }
         if (raising == true)
