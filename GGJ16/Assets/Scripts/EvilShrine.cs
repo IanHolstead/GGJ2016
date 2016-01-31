@@ -5,12 +5,18 @@ public class EvilShrine : UsableObject {
 
     Color colour = new Color();
     PlayerOrb validPlayer;
+    PlayerMotion[] players;
+
+    void Start()
+    {
+        players = FindObjectsOfType<PlayerMotion>();
+    }
 
     public override bool Use(PlayerOrb player)
     {
         if (player == validPlayer)
         {
-            //EnpowerPlayers();
+            EnpowerPlayers();
             RemoveWalls();
             DestroyOrb(player);
 
@@ -22,9 +28,17 @@ public class EvilShrine : UsableObject {
 
     private void EnpowerPlayers()
     {
-        PlayerMotion[] players = FindObjectsOfType<PlayerMotion>();
-
-        if (!players[0].hasDoubleJump)
+        Debug.Log("Ian Empower");
+        if (!players[0].hasJump)
+        {
+            Debug.Log("Ian jump");
+            foreach (PlayerMotion playerMotion in players)
+            {
+                Debug.Log("Ian player: " + playerMotion);
+                playerMotion.hasJump = true;
+            }
+        }
+        else if (!players[0].hasDoubleJump)
         {
             foreach (PlayerMotion playerMotion in players)
             {

@@ -15,7 +15,6 @@ public class Lava : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D otherObj)
     {
-        Debug.Log("Lava Collision!");
         if (otherObj.gameObject.tag == "Player")
         {
             otherObj.GetComponent<PlayerOrb>().Die();

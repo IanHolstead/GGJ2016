@@ -14,6 +14,7 @@ public class PlayerMotion : MonoBehaviour
 
 	public bool hasDoubleJump = false;
 	public bool hasFastMovement = false;
+    public bool hasJump = false;
 
     public Vector3 respawn = new Vector3(-3, 1, 0);
     public float respawnDelay = 1.0f;
@@ -43,7 +44,7 @@ public class PlayerMotion : MonoBehaviour
         }
 
 		Movement ();
-		if (playerID == 0 && Input.GetKeyDown (KeyCode.Joystick1Button0)) {
+        if (playerID == 0 && Input.GetKeyDown (KeyCode.Joystick1Button0)) {
 			isHoldingJump = true;
 		} else if (playerID == 1 && Input.GetKeyDown (KeyCode.Joystick2Button0)) {
 			isHoldingJump = true;
@@ -111,7 +112,10 @@ public class PlayerMotion : MonoBehaviour
 	}
 
 	bool isJump(){
-		if (playerID == 0 && Input.GetKeyDown (KeyCode.Joystick1Button0)) {
+        if (!hasJump) {
+            return false;
+        }
+        if (playerID == 0 && Input.GetKeyDown (KeyCode.Joystick1Button0)) {
 			return true;
 		} else if (playerID == 1 && Input.GetKeyDown (KeyCode.Joystick2Button0)) {
 			return true;

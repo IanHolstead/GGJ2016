@@ -8,6 +8,8 @@ public class PlayerOrb : MonoBehaviour {
     public Sprite blueSprite;
     public Sprite greenSprite;
     public Sprite yellowSprite;
+    public Sprite orangeSprite;
+    public Sprite purpleSprite;
     public Sprite defaultSprite;
     Orb orb;
 
@@ -56,6 +58,8 @@ public class PlayerOrb : MonoBehaviour {
         if (otherObj.gameObject.tag == "Orb")
         {
             useableObject = otherObj.gameObject.GetComponent<Orb>();
+            useableObject.Use(this);
+            useableObject = null;
         }
         else if (otherObj.gameObject.tag == "Shrine")
         {
@@ -96,30 +100,18 @@ public class PlayerOrb : MonoBehaviour {
         colour.a = 1;
         Sprite sprite;
         Debug.Log("Colour: " + colour);
-        Debug.Log("New colour: " + new Color(0, 0, 1));
         if (colour == new Color(1, 0, 0)) { sprite =  redSprite; }
         else if (colour == new Color(0, 1, 0)) { sprite = greenSprite; }
         else if (colour == new Color(0, 0, 1)) { sprite = blueSprite; }
         else if (colour == new Color(1, 1, 0)) { sprite = yellowSprite; }
+        else if (colour == new Color(1, .5f, 0)) { sprite =  orangeSprite; }
+        else if (colour == new Color(1, 0, 1)) { sprite = purpleSprite; }
         else {
-            //Debug.Log("Unknown colour!");
             colour = new Color();
             sprite = defaultSprite;
         }
         Debug.Log("setting sprite to: " + sprite);
         GetComponent<SpriteRenderer>().sprite = sprite;
-    }
-
-    public Sprite newPlayerSprite(Color colour)
-    {
-        colour.r *= 255;
-        colour.g *= 255;
-        colour.b *= 255;
-        if (colour == new Color(255, 0, 0)) { return redSprite; }
-        else if (colour == new Color(0, 255, 0)) { return greenSprite; }
-        else if (colour == new Color(0, 0, 255)) { return blueSprite; }
-        else if (colour == new Color(255, 255, 0)) { return yellowSprite; }
-        else { Debug.Log("Unknown colour!"); return defaultSprite; }
     }
 
     public void Die()
