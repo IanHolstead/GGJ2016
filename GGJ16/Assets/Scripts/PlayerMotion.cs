@@ -10,8 +10,13 @@ public class PlayerMotion : MonoBehaviour
 	private Vector3 rotation;
 	private bool isHoldingJump = false;
 	private bool hasDJumped = false;
-	private Rigidbody2D rigidbody;
-
+	private Rigidbody2D rb;
+	private bool isShocked = false;
+	private float shockedSince = 0f;
+	private int playersShocked = 0;
+	private SpriteRenderer currentSprite;
+	public static float shockTime = 10F;
+    
 	public bool hasDoubleJump = false;
 	public bool hasFastMovement = false;
     public bool hasJump = false;
@@ -24,21 +29,22 @@ public class PlayerMotion : MonoBehaviour
     void Start ()
 	{
 		playerCode = playerCode + playerID + "_";
-		rigidbody = GetComponent<Rigidbody2D> ();
+		rb = GetComponent<Rigidbody2D> ();
+		currentSprite = GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-
-        if (GetComponent<SpriteRenderer>().enabled == false)
+		unShock ();
+		if (currentSprite.enabled == false)
         {
             respawnTime += Time.deltaTime;
             if (respawnTime >= respawnDelay)
             {
-                GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+				rb.velocity = new Vector3(0, 0, 0);
                 transform.position = respawn;
-                GetComponent<SpriteRenderer>().enabled = true;
+				currentSprite.enabled = true;
                 respawnTime = 0.0f;
             }
         }
@@ -61,7 +67,7 @@ public class PlayerMotion : MonoBehaviour
 		} else if (playerID == 3 && Input.GetKeyUp (KeyCode.Joystick4Button0)) {
 			isHoldingJump = false;
 		}
-		//logBool (isHoldingJump, "Holding Jump", "Not Holding Jump");
+		unShock ();
 	}
 
 	void Movement ()
@@ -73,7 +79,10 @@ public class PlayerMotion : MonoBehaviour
 		bool jumping = false;
 		float hor = Input.GetAxis (playerCode + "Horizontal") * 50;
 		float jump = 0f;
-		x = rigidbody.velocity.x;
+		if (isShocked) {
+			hor = 0f;
+		}
+		x = rb.velocity.x;
 		if (x > maxHor) {
 			hor = maxHor - x;
 		} else if (-x > maxHor) {
@@ -102,20 +111,23 @@ public class PlayerMotion : MonoBehaviour
 		if (hasFastMovement) {
 			hor *= 2;
 		}
-		rigidbody.velocity += (new Vector2 (hor, 0) * Time.deltaTime);
-		rigidbody.velocity += (new Vector2 (0, jump) * Time.deltaTime);
-		y = rigidbody.velocity.y;
-		x = rigidbody.velocity.x;
+		rb.velocity += (new Vector2 (hor, 0) * Time.deltaTime);
+		rb.velocity += (new Vector2 (0, jump) * Time.deltaTime);
+		y = rb.velocity.y;
+		x = rb.velocity.x;
+		if (isShocked) {
+			x = 0;
+		}
 		if (y > maxHeight && !hasDJumped) {
-			rigidbody.velocity = new Vector2 (x, maxHeight);
+			rb.velocity = new Vector2 (x, maxHeight);
 		}
 	}
 
 	bool isJump(){
-        if (!hasJump) {
-            return false;
-        }
-        if (playerID == 0 && Input.GetKeyDown (KeyCode.Joystick1Button0)) {
+		if (!hasJump || isShocked) {
+			return false;
+		}
+		if (playerID == 0 && Input.GetKeyDown (KeyCode.Joystick1Button0)) {
 			return true;
 		} else if (playerID == 1 && Input.GetKeyDown (KeyCode.Joystick2Button0)) {
 			return true;
@@ -164,6 +176,20 @@ public class PlayerMotion : MonoBehaviour
 			Debug.Log (tr);
 		} else {
 			Debug.Log (fa);
+		}
+	}
+
+	public void Shock(int players){
+		isShocked = true;
+		//rb.gravityScale = 0;
+		shockedSince = Time.fixedTime;
+		playersShocked = players;
+	}
+
+	private void unShock(){
+		if (Time.fixedTime > shockedSince + (shockTime / playersShocked)) {
+			isShocked = false;
+			//rb.gravityScale = 1;
 		}
 	}
 }

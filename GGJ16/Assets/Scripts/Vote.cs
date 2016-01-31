@@ -13,14 +13,16 @@ public class Vote : MonoBehaviour
 	private int[] playerBalletsPartial = new int[4] { -1, -1, -1, -1 };
 	public Text timerText;
 	public GameObject storm;
+	private Shocking stormShock;
+	private PlayerMediam cameraFollowScript;
 
-	float timer = 10;
+	public float timer = 10f;
 	bool displaying = true;
 
 	// Use this for initialization
 	void Start ()
 	{
-		Debug.Log ("Start!");
+		//Debug.Log ("Start!");
 		playerVotes.Add (p1Votes);
 		playerVotes.Add (p2Votes);
 		playerVotes.Add (p3Votes);
@@ -33,6 +35,8 @@ public class Vote : MonoBehaviour
 				playerVotes[i][ii].GetComponent<SpriteRenderer> ().enabled = false;
 			}
 		}
+		cameraFollowScript = GetComponentInParent<PlayerMediam> ();
+		stormShock = storm.GetComponent<Shocking> ();
 	}
 	
 	// Update is called once per frame
@@ -94,16 +98,17 @@ public class Vote : MonoBehaviour
 					// those votes and zap them
 					for (int ii = 0; ii < 4; ++ii) {
 						if (playerBallets [ii] == i) {
-							Debug.Log ("Zapping Player" + (ii + 1));
-							storm.GetComponent<Shocking> ().AttackTarget (ii);
+							//Debug.Log ("Zapping Player" + (ii + 1));
+							stormShock.AttackTarget (ii);
+							cameraFollowScript.FollowPlayer (ii);
 							return;
 						}
 					}
 				} else if (votesDist[i] >= 2 || i == 0) {
 					// If there is to "winners" or we've got to the 
 					//end of the array
-					Debug.Log ("Zapping Everyone");
-					storm.GetComponent<Shocking> ().AttackAll();
+					//Debug.Log ("Zapping Everyone");
+					stormShock.AttackAll();
 					return;
 				}
 			}
